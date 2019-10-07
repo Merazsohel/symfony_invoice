@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+{% block title %} Sales Report {% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="container">
+            <div class="col-md-12 mt-5">
+                <form action="">
+                    <div class="form-group">
+
+                        <div class="row">
+                            <label for="inputName" class="mr-2 mt-1">From</label>
+                            <div class="col-xs-2">
+                                <input type="date" class="form-control" id="inputName" >
+                            </div>
+
+
+                            <div class="col-xs-1 ml-5"></div>
+
+                            <label for="inputName" class="mt-1">To</label>
+                            <div class="col-xs-2 ml-4">
+                                <input type="date" class="form-control" id="inputName">
+                            </div>
+                            <div class="ml-5">
+                                <input id="calculate" type="submit" class="btn btn-info" value="View Report" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                </form>
+
+
+
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">Bill No.</th>
+                        <th scope="col">Bill Date</th>
+                        <th scope="col">Vat</th>
+                        <th scope="col">Discount</th>
+                        <th scope="col">Grand Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>200</td>
+                        <td>100</td>
+                        <td>300</td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td class="float-right">Total:</td>
+                        <td class="bg-info">200</td>
+                        <td class="bg-info">100</td>
+                        <td class="bg-info">300</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-info btn-lg float-right"><i class="fa fa-print"></i> Print</button>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %} {% endblock %}

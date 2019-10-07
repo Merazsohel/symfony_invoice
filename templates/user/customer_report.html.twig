@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block title %} Customer Report {% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="container">
+            <div class="col-md-12 mt-5">
+
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">Customer ID</th>
+                        <th scope="col">Customer Name</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Contact No.</th>
+                        <th scope="col">Email</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr>
+                        <td>C-10239203902</td>
+                        <td>Mark</td>
+                        <td>Mark</td>
+                        <td>Mark</td>
+                        <td>Mark</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-info btn-lg float-right"><i class="fa fa-print"></i> Print</button>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %} {% endblock %}
