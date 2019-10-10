@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Settings index{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="container">
+        <div class="col-md-12 mt-5">
+            <a href="{{ path('settings_new') }}" class="btn btn-info mb-3"> Create new</a>
+      <table class="table table-bordered center">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Value</th>
+                <th>Active</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for setting in settings %}
+            <tr>
+                <td>{{ setting.id }}</td>
+                <td>{{ setting.name }}</td>
+                <td>{{ setting.value }}</td>
+                <td>{{ setting.active ? 'Yes' : 'No' }}</td>
+
+                <td>
+                    <div style="width:33%;float:left;" >
+                        <a href="{{ path('settings_show', {'id': setting.id}) }}" class="btn btn-info">view</a>
+
+                    </div>
+                    <div style="width:33%; float:right;">
+                        <a href="{{ path('settings_edit', {'id': setting.id}) }}" class="btn btn-primary">edit</a>
+
+
+                    </div>
+
+
+                    <div style="width:33%; float:right;">
+                        <form method="post" action="{{ path('settings_delete', {'id': setting.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ setting.id) }}">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Category{% endblock %}
+{% block title %}New Settings{% endblock %}
 
 {% block body %}
 
@@ -11,19 +11,20 @@
                     <div class="col-md-6 mx-auto">
                         <div class="card border-secondary">
                             <div class="card-header">
-                                <h3 class="mb-0 my-2"> Update Category</h3>
+                                <h3 class="mb-0 my-2">Update</h3>
                             </div>
                             <div class="card-body">
 
-                                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                                {{ form_start(form) }}
                                 {{ form_widget(form) }}
 
 
-                                <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+
+                                <button class="btn btn-success">{{ button_label|default('Update') }}</button>
 
                                 {{ form_end(form) }}
 
-                                <a href="{{ path('category_index') }}" class="btn btn-info mt-3">Back To List</a>
+                                <a href="{{ path('settings_index') }}" class="btn btn-info mt-3">back to list</a>
                             </div>
                         </div>
                     </div>
@@ -32,4 +33,3 @@
         </div>
     </div>
 {% endblock %}
-

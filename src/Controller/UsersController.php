@@ -34,28 +34,28 @@ class UsersController extends AbstractController
     /**
      * @Route("/customer/create", name="customer_create")
      */
-    public function customer_create(){
+    public function customerCreate(){
         return $this->render('user/customer_create.html.twig');
     }
 
     /**
      * @Route("/customer/index", name="customer_list")
      */
-    public function customer_list(){
+    public function customerList(){
         return $this->render('user/customer_list.html.twig');
     }
 
     /**
      * @Route("/customer/edit", name="customer_edit")
      */
-    public function customer_edit(){
+    public function customerEdit(){
         return $this->render('user/customer_edit.html.twig');
     }
 
     /**
      * @Route("/customer/report", name="customer_report")
      */
-    public function customer_report(){
+    public function customerReport(){
         return $this->render('user/customer_report.html.twig');
     }
 }
