@@ -6,13 +6,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     {% block stylesheets %}{% endblock %}
 </head>
-<body>
+<body background="{{ asset('image/sakura.png') }}" >
 {% block body %}
-    <div class="container col-md-6 mt-5 bg-info">
+    <div class="container col-md-6 mt-5 bg-primary">
         <!-- Default form login -->
-        <form class="text-center border border-light p-5" action="#!">
+        <form class="text-center  p-5" action="#">
 
-            <p class="h4 mb-4">Sign in</p>
+            <p class="h4 mb-4" style="color: white">Sign in</p>
 
             <!-- Email -->
             <input type="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
@@ -25,16 +25,16 @@
                     <!-- Remember me -->
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
-                        <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
+                        <label class="custom-control-label" for="defaultLoginFormRemember" style="color: white">Remember me</label>
                     </div>
                 </div>
                 <div>
-                    <a href="">Forgot password?</a>
+                    <a href="" style="color: white">Forgot password?</a>
                 </div>
             </div>
 
 
-            <a href="{{ url('admin_dashboard') }}" class="btn btn-info btn-block my-4" type="submit">Sign In</a>
+            <a href="{{ url('admin_dashboard') }}" class="btn btn-primary btn-block my-4" type="submit">Sign In</a>
 
 
         </form>

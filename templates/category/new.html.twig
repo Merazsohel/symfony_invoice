@@ -12,18 +12,13 @@
                         <div class="card border-secondary">
                             <div class="card-header">
                                 <h3 class="mb-0 my-2"> New Category</h3>
+
+
                             </div>
                             <div class="card-body">
 
-                                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-                                {{ form_widget(form) }}
+                                {{ include('category/_form.html.twig') }}
 
-
-                                <button class="btn btn-success">{{ button_label|default('Save') }}</button>
-
-                                {{ form_end(form) }}
-
-                                <a href="{{ path('category_index') }}" class="btn btn-info mt-3">Back To List</a>
                             </div>
                         </div>
                     </div>

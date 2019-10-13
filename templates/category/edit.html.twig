@@ -15,15 +15,8 @@
                             </div>
                             <div class="card-body">
 
-                                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-                                {{ form_widget(form) }}
+                                {{ include('category/_form.html.twig', {'button_label': 'Update'}) }}
 
-
-                                <button class="btn btn-success">{{ button_label|default('Save') }}</button>
-
-                                {{ form_end(form) }}
-
-                                <a href="{{ path('category_index') }}" class="btn btn-info mt-3">Back To List</a>
                             </div>
                         </div>
                     </div>

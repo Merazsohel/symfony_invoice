@@ -25,3 +25,31 @@ App\Entity\Category:
           max: 10
           minMessage: 'Your  name must be at least {{ limit }} characters long'
           maxMessage: 'Your name cannot be longer than {{ limit }} characters'
+
+App\Entity\Product:
+  properties:
+    name:
+      - NotBlank: { message: 'The name field is required' }
+      - Length:
+          min: 2
+          max: 10
+          minMessage: 'Your  name must be at least {{ limit }} characters long'
+          maxMessage: 'Your name cannot be longer than {{ limit }} characters'
+
+    price:
+      - NotBlank: { message: 'The price field is required' }
+
+    category:
+      - NotBlank: { message: 'The category field is required' }
+
+App\Entity\Customer:
+  properties:
+    name:
+      - NotBlank: { message: 'The name field is required' }
+    address:
+        - NotBlank: { message: 'The address field is required' }
+    city:
+      - NotBlank: { message: 'The city field is required' }
+
+    contact:
+      - NotBlank: { message: 'The contact field is required' }

@@ -1,6 +1,13 @@
 li>a{
-    background-color: darkgray;
+    background-color: crimson;
+    color: white !important;
+}
+.nav-col{
+    background-color: crimson;
 }
 .center{
     text-align: center;
+}
+th, td, tr{
+    border: 1px solid red !important;
 }
