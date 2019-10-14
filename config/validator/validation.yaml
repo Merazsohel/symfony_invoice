@@ -53,3 +53,10 @@ App\Entity\Customer:
 
     contact:
       - NotBlank: { message: 'The contact field is required' }
+
+App\Entity\Invoice:
+  properties:
+    BillNumber:
+      - NotBlank: { message: 'The BillNumber field is required' }
+    BillDate:
+      - NotBlank: { message: 'The BillDate field is required' }

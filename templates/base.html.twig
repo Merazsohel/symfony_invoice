@@ -30,15 +30,6 @@
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">Users</a>
-                <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="{{ url('user_list') }}">List Users</a>
-                    <a class="dropdown-item" href="{{ url('user_create') }}">Add User</a>
-                </div>
-            </li>
-
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">Category</a>
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="{{ url('category_index') }}">List Category</a>
@@ -63,21 +54,6 @@
                     <a class="dropdown-item" href="{{ url('customer_create') }}">Add Customer</a>
                 </div>
             </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('invoice_create') }}">Create Invoice</a>
-            </li>
-
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle " id="navbarDropdownMenuLink" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">Report</a>
-                <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="{{ url('sales_report') }}">Sales Report</a>
-                    <a class="dropdown-item" href="{{ url('customer_report') }}">Customer Report</a>
-                </div>
-            </li>
-
-
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle " id="navbarDropdownMenuLink" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">Settings</a>
@@ -86,9 +62,24 @@
                     <a class="dropdown-item" href="{{ url('settings_new') }}">Add Settings</a>
                 </div>
             </li>
+            <li class="nav-item">
+                <a class="nav-link btn btn-danger" href="{{ url('invoice_create') }}">Create Invoice</a>
+            </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('home') }}">Logout</a>
+                <a class="nav-link btn btn-danger" href="{{ url('sales_report') }}">Sales Report</a>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">Users</a>
+                <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="{{ url('user_list') }}">List Users</a>
+                    <a class="dropdown-item" href="{{ url('user_create') }}">Add User</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link  btn btn-danger" href="{{ url('home') }}">Logout</a>
             </li>
 
         </ul>

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,11 +34,19 @@ class Product
      */
     private $price;
 
+    /**
+     * @ORM\OneToMany(targetEntity="InvoiceDetail", mappedBy="product")
+     */
+    private $saleDetails;
+
+    public function __construct()
+    {
+        $this->saleDetails = new ArrayCollection();
+    }
     public function getId(): ?int
     {
         return $this->id;
     }
-
     public function getCategory(): ?Category
     {
         return $this->category;
@@ -72,4 +82,39 @@ class Product
 
         return $this;
     }
+
+    /**
+     * @return Collection|InvoiceDetail[]
+     */
+    public function getSaleDetails(): Collection
+    {
+        return $this->saleDetails;
+    }
+
+    public function addSaleDetail(InvoiceDetail $saleDetail): self
+    {
+        if (!$this->saleDetails->contains($saleDetail)) {
+            $this->saleDetails[] = $saleDetail;
+            $saleDetail->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSaleDetail(InvoiceDetail $saleDetail): self
+    {
+        if ($this->saleDetails->contains($saleDetail)) {
+            $this->saleDetails->removeElement($saleDetail);
+            // set the owning side to null (unless already changed)
+            if ($saleDetail->getProduct() === $this) {
+                $saleDetail->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
+    
 }

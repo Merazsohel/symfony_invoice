@@ -11,3 +11,6 @@ li>a{
 th, td, tr{
     border: 1px solid red !important;
 }
+body{
+    overflow-y: scroll; overflow-x:hidden;
+}
