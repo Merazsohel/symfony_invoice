@@ -30,6 +30,11 @@ class InvoiceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+//          $test =  $invoice->getInvoiceDetails();
+//            var_dump($test);
+//            exit();
+
             $em->persist($invoice);
             $em->flush();
 

@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\SaleDetailRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\InvoiceDetailRepository")
  */
 class InvoiceDetail
 {
@@ -17,12 +17,12 @@ class InvoiceDetail
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="saleDetails")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="invoiceDetails")
      */
     private $product;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Invoice", inversedBy="saleDetails")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Invoice", inversedBy="invoiceDetails")
      */
     private $invoice;
 
@@ -32,7 +32,7 @@ class InvoiceDetail
     private $quantity;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float",nullable=true)
      */
     private $unitprice;
 
@@ -49,7 +49,7 @@ class InvoiceDetail
     public function setProduct(?Product $product): self
     {
         $this->product = $product;
-
+        $this->setUnitprice($product->getPrice());
         return $this;
     }
 

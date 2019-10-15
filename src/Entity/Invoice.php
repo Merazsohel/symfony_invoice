@@ -54,13 +54,13 @@ class Invoice
     private $discount;
 
     /**
-     * @ORM\OneToMany(targetEntity="InvoiceDetail", mappedBy="invoice")
+     * @ORM\OneToMany(targetEntity="InvoiceDetail", mappedBy="invoice", cascade={"persist"})
      */
-    private $saleDetails;
+    private $invoiceDetails;
 
     public function __construct()
     {
-        $this->saleDetails = new ArrayCollection();
+        $this->invoiceDetails = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -155,28 +155,28 @@ class Invoice
     /**
      * @return Collection|InvoiceDetail[]
      */
-    public function getSaleDetails(): Collection
+    public function getInvoiceDetails(): Collection
     {
-        return $this->saleDetails;
+        return $this->invoiceDetails;
     }
 
-    public function addSaleDetail(InvoiceDetail $saleDetail): self
+    public function addInvoiceDetail(InvoiceDetail $invoiceDetail): self
     {
-        if (!$this->saleDetails->contains($saleDetail)) {
-            $this->saleDetails[] = $saleDetail;
-            $saleDetail->setInvoice($this);
+        if (!$this->invoiceDetails->contains($invoiceDetail)) {
+            $this->invoiceDetails[] = $invoiceDetail;
+            $invoiceDetail->setInvoice($this);
         }
 
         return $this;
     }
 
-    public function removeSaleDetail(InvoiceDetail $saleDetail): self
+    public function removeInvoiceDetail(InvoiceDetail $invoiceDetail): self
     {
-        if ($this->saleDetails->contains($saleDetail)) {
-            $this->saleDetails->removeElement($saleDetail);
+        if ($this->invoiceDetails->contains($invoiceDetail)) {
+            $this->invoiceDetails->removeElement($invoiceDetail);
             // set the owning side to null (unless already changed)
-            if ($saleDetail->getInvoice() === $this) {
-                $saleDetail->setInvoice(null);
+            if ($invoiceDetail->getInvoice() === $this) {
+                $invoiceDetail->setInvoice(null);
             }
         }
 

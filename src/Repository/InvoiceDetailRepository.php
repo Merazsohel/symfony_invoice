@@ -12,7 +12,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  * @method InvoiceDetail[]    findAll()
  * @method InvoiceDetail[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SaleDetailRepository extends ServiceEntityRepository
+class InvoiceDetailRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

@@ -37,11 +37,11 @@ class Product
     /**
      * @ORM\OneToMany(targetEntity="InvoiceDetail", mappedBy="product")
      */
-    private $saleDetails;
+    private $invoiceDetails;
 
     public function __construct()
     {
-        $this->saleDetails = new ArrayCollection();
+        $this->invoiceDetails = new ArrayCollection();
     }
     public function getId(): ?int
     {
@@ -86,35 +86,33 @@ class Product
     /**
      * @return Collection|InvoiceDetail[]
      */
-    public function getSaleDetails(): Collection
+    public function getInvoiceDetails(): Collection
     {
-        return $this->saleDetails;
+        return $this->invoiceDetails;
     }
 
-    public function addSaleDetail(InvoiceDetail $saleDetail): self
+    public function addInvoiceDetail(InvoiceDetail $invoiceDetail): self
     {
-        if (!$this->saleDetails->contains($saleDetail)) {
-            $this->saleDetails[] = $saleDetail;
-            $saleDetail->setProduct($this);
+        if (!$this->invoiceDetails->contains($invoiceDetail)) {
+            $this->invoiceDetails[] = $invoiceDetail;
+            $invoiceDetail->setProduct($this);
         }
 
         return $this;
     }
 
-    public function removeSaleDetail(InvoiceDetail $saleDetail): self
+    public function removeInvoiceDetail(InvoiceDetail $invoiceDetail): self
     {
-        if ($this->saleDetails->contains($saleDetail)) {
-            $this->saleDetails->removeElement($saleDetail);
+        if ($this->invoiceDetails->contains($invoiceDetail)) {
+            $this->invoiceDetails->removeElement($invoiceDetail);
             // set the owning side to null (unless already changed)
-            if ($saleDetail->getProduct() === $this) {
-                $saleDetail->setProduct(null);
+            if ($invoiceDetail->getProduct() === $this) {
+                $invoiceDetail->setProduct(null);
             }
         }
 
         return $this;
     }
-
-
 
     
 }

@@ -20,7 +20,7 @@ class CustomerType extends AbstractType
             ->add('contact')
             ->add('save',SubmitType::class,[
                 'attr' => [
-                    'class' => 'btn btn-success'
+                    'class' => 'btn btn-danger'
                 ]
             ])
         ;
