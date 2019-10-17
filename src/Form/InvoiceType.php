@@ -2,7 +2,10 @@
 
 
 namespace App\Form;
+
 use App\Entity\Invoice;
+use App\Entity\Product;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -19,15 +22,20 @@ class InvoiceType extends AbstractType
             ->add('billDate', DateType::class, ['widget' => 'single_text'])
             ->add('customer')
             ->add('remarks')
-            ->add('subtotal')
-            ->add('vat')
-            ->add('discount')
-            ->add('Submit',SubmitType::class,[
+            ->add('subtotal',null,[
+                'attr' => ['class' => 'subtotal'],
+            ])
+            ->add('vat',null,[
+                'attr' => ['class' => 'vat'],
+            ])
+            ->add('discount',null,[
+                'attr' => ['class' => 'discount']
+            ])
+            ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-success'
                 ]
-            ])
-        ;
+            ]);
 
         $builder->add('invoiceDetails', CollectionType::class, [
             'entry_type' => InvoiceDetailType::class,

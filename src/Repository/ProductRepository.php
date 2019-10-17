@@ -19,6 +19,17 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+    public function getPrice($id){
+
+        $qb = $this->createQueryBuilder('p')
+            ->where('p.id = :id')->setParameter('id',$id)
+            ->select('p.price');
+
+        $query = $qb->getQuery();
+
+        return $query->getSingleResult();
+    }
+
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */

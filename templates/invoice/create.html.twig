@@ -35,7 +35,9 @@
                             {% for detail in form.invoiceDetails %}
 
                                 <tr id="product">
+
                                     {% include('invoice/form_prototype.html.twig')  with {form: item} %}
+
                                 </tr>
 
                             {% endfor %}
@@ -47,41 +49,9 @@
                         {{ form_row(form.billNumber) }}
                         {{ form_row(form.billDate) }}
                         {{ form_row(form.customer) }}
+                        {{ form_row(form.vat) }}
+                        {{ form_row(form.discount) }}
 
-                        <div class="form-group">
-
-                            <div class="row">
-
-                                <div class="col-md-5">
-                                    {{ form_label(form.vat) }}
-                                    <input type="text" class="form-control" id="inputName">
-                                </div>
-                                <div class="col-md-1 mt-4">%</div>
-                                <div class="col-md-5 mt-4">
-
-                                    {{ form_widget(form.vat) }}
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="form-group">
-                            <div class="row">
-
-                                <div class="col-md-5">
-                                    {{ form_label(form.discount) }}
-                                    <input type="text" class="form-control" id="inputName">
-                                </div>
-                                <div class="col-md-1 mt-4">%</div>
-                                <div class="col-md-5 mt-4">
-                                    {{ form_widget(form.discount) }}
-                                </div>
-
-                            </div>
-
-                        </div>
 
                     </div>
                 </div>
@@ -99,15 +69,15 @@
 
                         <div class="form-group">
                             <label for="inputName">Cash</label>
-                            <input type="text" class="form-control" id="inputName">
+                            <input id="cash"  type="text" class="form-control cash">
                         </div>
 
                         <div class="form-group">
                             <label for="inputName">Change</label>
-                            <input type="text" class="form-control" id="inputName">
+                            <input id="change" type="text" class="form-control">
                         </div>
 
-                            {{ form_row(form.Submit) }}
+                        {{ form_row(form.submit) }}
 
                     </div>
                 </div>
@@ -116,13 +86,99 @@
 
         </div>
 
+
         {{ form_end(form) }}
 
     </div>
 
+
 {% endblock %}
 
 {% block javascripts %}
+
+    <script>
+        $(document).ready(function () {
+
+            $("#invoice").on('change', '.product', (function () {
+
+                var thisProd = $(this);
+                var id = thisProd.val();
+
+                $.ajax({
+                    type: "POST",
+                    dataType: "html",
+                    url: "{{ path('product_price') }}",
+                    data: 'id=' + id,
+                    success: function (data) {
+                        thisProd.closest("tr").find("td.price").html(data);
+                        //$('.price').text(data);
+                    },
+
+                });
+            }));
+
+        });
+
+
+        $(document).ready(function () {
+
+            $("#invoice").on('change', '.quantity', (function () {
+
+                var thisQty = $(this);
+                var qty = parseFloat(thisQty.val());
+
+                var price = parseFloat(thisQty.closest("tr").find("td.price").html());
+
+                thisQty.closest("tr").find("td.total").html(price * qty);
+                thisQty.closest("tr").find("td.total").attr("data-val", price * qty);
+
+                calculateSubTotal();
+
+            }));
+
+        });
+
+
+        calculateSubTotal = function () {
+            var totalSum = 0;
+
+            $("#invoice .total").each(function (i, val) {
+               $(this).attr("data-val");
+
+                totalSum += parseFloat($(this).attr("data-val"));
+
+            });
+            $("#invoice_subtotal").val(totalSum);
+        };
+
+
+        $(document).on('input','.cash', (function () {
+         var sub = document.getElementById("invoice_subtotal").value - $(this).val();
+         $("#change").val(sub);
+
+        }));
+
+        $(document).on('input','.vat', (function () {
+         var subT = document.getElementById("invoice_subtotal").value;
+         var vatT= $(this).val();
+         var vatAdd = parseFloat(subT) + parseFloat(vatT);
+         $("#invoice_subtotal").val(vatAdd);
+
+        }));
+
+        $(document).on('input','.discount', (function () {
+         var subT = document.getElementById("invoice_subtotal").value;
+         var disT= $(this).val();
+         var disAdd = parseFloat(subT) - parseFloat(disT);
+         $("#invoice_subtotal").val(disAdd);
+
+        }));
+
+
+
+    </script>
+
+
     <script>
 
         var $collectionHolder;
@@ -159,9 +215,12 @@
     {#remove product item#}
 
     <script>
-        $('table').on('click', 'input[type="button"]', function(e){
-            $(this).closest('tr').remove()
+        $('table').on('click', 'input[type="button"]', function (e) {
+            $(this).closest('tr').remove();
+            calculateSubTotal();
         })
     </script>
+
+
 
 {% endblock %}

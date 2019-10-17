@@ -3,6 +3,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,20 +32,33 @@ class InvoiceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-//          $test =  $invoice->getInvoiceDetails();
-//            var_dump($test);
-//            exit();
-
             $em->persist($invoice);
             $em->flush();
 
             return $this->redirect($this->generateUrl('invoice_create'));
 
         };
+
         $products = $productRepository->findAll();
+
         return $this->render('invoice/create.html.twig',[
             'form' => $form->createView(),
             'products' => $products
         ]);
     }
+
+    /**
+     * @Route("/price", name="product_price")
+     * @param Request $request
+     * @return Response
+     */
+    public function price(Request $request)
+    {
+        $id = $request->request->get('id');
+        $row = $this->getDoctrine()->getRepository(Product::class)->getPrice($id);
+
+        return new Response($row['price']);
+    }
+
+
 }

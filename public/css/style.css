@@ -14,3 +14,6 @@ th, td, tr{
 body{
     overflow-y: scroll; overflow-x:hidden;
 }
+.col-form-label{
+    display: none;
+}

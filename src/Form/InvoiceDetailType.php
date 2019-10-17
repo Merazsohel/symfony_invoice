@@ -17,11 +17,15 @@ class InvoiceDetailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('quantity');
+            ->add('quantity',null,[
+                'attr' => ['class' => 'quantity'],
+            ]);
 
         $builder->add('product', EntityType::class, [
             'class' => Product::class,
             'choice_label' => 'name',
+            'attr' => ['class' => 'product'],
+            'placeholder' => "Select"
         ]);
 
     }

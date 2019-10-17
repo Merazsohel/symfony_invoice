@@ -1,9 +1,12 @@
 
-<td>{{ form_widget(form.product) }}</td>
-<td>---</td>
+<td> {{ form_widget(form.product) }}</td>
+
+<td class="price"> </td>
 <td>{{ form_widget(form.quantity) }}</td>
-<td>---</td>
+
+<td class="total" data-val=""></td>
+
 <td>
-    {#<a href="" style="color: red"> <i class="fa fa-trash ml-4"></i> </a>#}
-    <input type="button" class="btn btn-danger remove-item" value="X" />
+
+    <input type="button" class="btn btn-danger remove-item" value="x" />
 </td>
