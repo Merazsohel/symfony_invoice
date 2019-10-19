@@ -19,6 +19,25 @@ class InvoiceRepository extends ServiceEntityRepository
         parent::__construct($registry, Invoice::class);
     }
 
+    public function getInvoiceDetails(){
+        return $this->createQueryBuilder('i')
+                ->join('i.invoiceDetails','d')
+                ->join('d.product','p')
+                ->join('i.customer','c')
+                ->select('p.name,p.price,i.id,i.BillDate,i.BillNumber,i.subtotal,i.vat,i.discount,c.email,c.address')
+                ->groupBy('i.id')
+                ->getQuery()
+                ->getResult()
+                ;
+    }
+
+    public function invoiceDelete($invoice){
+        $this->_em->remove($invoice);
+        $this->_em->flush();
+    }
+
+
+
     // /**
     //  * @return Invoice[] Returns an array of Invoice objects
     //  */

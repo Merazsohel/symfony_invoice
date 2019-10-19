@@ -44,7 +44,7 @@ class Settings
 
     public function setName(string $name): self
     {
-        $this->name = $name;
+        $this->name = strtoupper(str_replace(' ', '_', $name));
 
         return $this;
     }

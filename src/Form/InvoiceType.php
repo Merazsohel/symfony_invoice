@@ -26,7 +26,7 @@ class InvoiceType extends AbstractType
                 'attr' => ['class' => 'subtotal'],
             ])
             ->add('vat',null,[
-                'attr' => ['class' => 'vat'],
+                'attr' => ['class' => 'vat','readonly' =>'true'],
             ])
             ->add('discount',null,[
                 'attr' => ['class' => 'discount']
@@ -34,6 +34,7 @@ class InvoiceType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-success'
+
                 ]
             ]);
 

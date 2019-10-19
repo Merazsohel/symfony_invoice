@@ -54,7 +54,7 @@ class Invoice
     private $discount;
 
     /**
-     * @ORM\OneToMany(targetEntity="InvoiceDetail", mappedBy="invoice", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="InvoiceDetail", mappedBy="invoice", cascade={"persist","remove"})
      */
     private $invoiceDetails;
 
@@ -151,7 +151,10 @@ class Invoice
 
         return $this;
     }
-
+    public function __toString()
+    {
+        return $this->BillDate;
+    }
     /**
      * @return Collection|InvoiceDetail[]
      */
@@ -182,4 +185,6 @@ class Invoice
 
         return $this;
     }
+
+
 }
