@@ -6,13 +6,15 @@
     <div class="row">
         <div class="container">
             <div class="col-md-12 mt-5">
-                <form action="">
+                <form action="{{ url('get_sales_report') }}" method="post">
+                    <input type="hidden" name="token" value="{{ csrf_token('sales-item') }}"/>
+
                     <div class="form-group">
 
                         <div class="row">
                             <label for="inputName" class="mr-2 mt-1">From</label>
                             <div class="col-xs-2">
-                                <input type="date" class="form-control" id="inputName" >
+                                <input type="date" name="from" class="form-control" id="inputName">
                             </div>
 
 
@@ -20,10 +22,10 @@
 
                             <label for="inputName" class="mt-1">To</label>
                             <div class="col-xs-2 ml-4">
-                                <input type="date" class="form-control" id="inputName">
+                                <input type="date" name="to" class="form-control" id="inputName">
                             </div>
                             <div class="ml-5">
-                                <input id="calculate" type="submit" class="btn btn-danger" value="View Report" />
+                                <input id="calculate" type="submit" name="submit" class="btn btn-danger" value="View Report"/>
                             </div>
                         </div>
 
@@ -32,42 +34,60 @@
                 </form>
 
 
-
-                <table class="table table-bordered">
+                <table class="table table-bordered center sales">
                     <thead>
                     <tr>
                         <th scope="col">Bill No.</th>
+                        <th scope="col">Sl.</th>
                         <th scope="col">Bill Date</th>
-                        <th scope="col">Vat</th>
-                        <th scope="col">Discount</th>
-                        <th scope="col">Grand Total</th>
+                        <th scope="col">Sub Total</th>
+
                     </tr>
                     </thead>
                     <tbody>
+                    {% for i,sale in sales %}
 
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>200</td>
-                        <td>100</td>
-                        <td>300</td>
-                    </tr>
+                        <tr>
+                            <th>{{ i+1 }}</th>
+                            <th scope="row">{{ sale.BillNumber }}</th>
+                            <td>{{ sale.BillDate|date("d/m/Y") }}</td>
+                            <td>{{ sale.subtotal }} TK.</td>
 
+                        </tr>
+
+                    {% endfor %}
                     <tr>
                         <td></td>
+                        <td></td>
                         <td class="float-right bg-danger" style="color: white">Total:</td>
-                        <td>200</td>
-                        <td>100</td>
-                        <td>300</td>
+
+                        {% for saleCount in salesCount %}
+
+                        <td class="bg-danger" style="color: white">{{ saleCount.subCount }} TK.</td>
+
+                        {% endfor %}
                     </tr>
 
                     </tbody>
                 </table>
-                <button type="submit" class="btn btn-danger float-right"><i class="fa fa-print"></i> Print</button>
+                <button type="submit" class="btn btn-danger float-right" id="printSales"><i class="fa fa-print"></i> Print</button>
             </div>
         </div>
     </div>
 
 {% endblock %}
 
-{% block javascripts %} {% endblock %}
+{% block javascripts %}
+    <script>
+        $('#printSales').click(function(){
+            Popup($('.sales'));
+
+            function Popup()
+            {
+                window.print();
+
+
+            }
+        });
+    </script>
+{% endblock %}

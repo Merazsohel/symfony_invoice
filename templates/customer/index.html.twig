@@ -7,8 +7,8 @@
         <div class="container">
             <div class="col-md-12 mt-5">
                 <a href="{{ path('customer_create') }}" class="btn btn-danger mb-3"><i class="fa fa-plus"> New</i></a>
-                <a href="{{ path('customer_create') }}" class="btn btn-danger mb-3 float-right"><i class="fa fa-print"> Print</i></a>
-                <table class="table table-bordered center">
+                <a href="#" class="btn btn-danger mb-3 float-right" id="printCustomer"><i class="fa fa-print"> Print</i></a>
+                <table class="table table-bordered center customer">
                     <thead>
                     <tr>
                         <th scope="col">Customer ID</th>
@@ -47,4 +47,17 @@
 
 {% endblock %}
 
-{% block javascripts %} {% endblock %}
+{% block javascripts %}
+    <script>
+        $('#printCustomer').click(function(){
+            Popup($('.customer'));
+
+            function Popup()
+            {
+                window.print();
+
+
+            }
+        });
+    </script>
+{% endblock %}

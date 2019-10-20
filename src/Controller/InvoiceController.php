@@ -4,7 +4,6 @@
 namespace App\Controller;
 
 use App\Entity\Product;
-use App\Repository\ProductRepository;
 use App\Repository\SettingsRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,16 +17,32 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class InvoiceController extends AbstractController
 {
+
+
+    /**
+     * @Route("/index", name="invoice_list")
+     * @return Response
+     */
+
+    public function index()
+    {
+
+        $invoices = $this->getDoctrine()->getRepository(Invoice::class)->getInvoiceDetails();
+
+        return $this->render('invoice/index.html.twig', [
+            'invoices' => $invoices,
+        ]);
+    }
+
     /**
      * @Route("/new", name="invoice_create")
      * @param Request $request
-     * @param ProductRepository $productRepository
      * @param SettingsRepository $settingsRepository
      * @return Response
      */
-    public function new(Request $request, ProductRepository $productRepository,SettingsRepository $settingsRepository){
+    public function new(Request $request, SettingsRepository $settingsRepository)
+    {
         $invoice = new Invoice();
-
         $form = $this->createForm(InvoiceType::class, $invoice);
         $form->handleRequest($request);
 
@@ -41,13 +56,10 @@ class InvoiceController extends AbstractController
 
         };
 
-        $vat = $settingsRepository->findOneBy(['name'=>'vat']);
+        $vat = $settingsRepository->findOneBy(['name' => 'vat']);
 
-        $products = $productRepository->findAll();
-
-        return $this->render('invoice/create.html.twig',[
+        return $this->render('invoice/create.html.twig', [
             'form' => $form->createView(),
-            'products' => $products,
             'vat' => $vat
         ]);
     }
@@ -66,18 +78,35 @@ class InvoiceController extends AbstractController
     }
 
     /**
-     * @Route("/index", name="invoice_list")
+     * @Route("/edit/{id}", name="invoice_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Invoice $invoice
+     * @param SettingsRepository $settingsRepository
      * @return Response
      */
+    public function edit(Request $request, Invoice $invoice, SettingsRepository $settingsRepository): Response
+    {
+        $form = $this->createForm(InvoiceType::class, $invoice);
+        $form->handleRequest($request);
 
-    public function index(){
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($invoice);
+            $em->flush();
 
-        $invoices = $this->getDoctrine()->getRepository(Invoice::class)->getInvoiceDetails();
+            return $this->redirect($this->generateUrl('invoice_list'));
 
-        return $this->render('invoice/index.html.twig', [
-            'invoices' => $invoices,
+        };
+
+        $vat = $settingsRepository->findOneBy(['name' => 'vat']);
+        return $this->render('invoice/create.html.twig', [
+            'form' => $form->createView(),
+            'vat' => $vat,
+            'invoice' => $invoice
+
         ]);
     }
+
 
     /**
      * @Route("/show/{id}", name="invoice_show", methods={"GET"})
@@ -87,44 +116,25 @@ class InvoiceController extends AbstractController
      */
     public function show(Invoice $invoice, SettingsRepository $settingsRepository): Response
     {
-        $address = $settingsRepository->findOneBy(['name'=>'shop_address']);
-        $email = $settingsRepository->findOneBy(['name'=>'email']);
+        $address = $settingsRepository->findOneBy(['name' => 'shop_address']);
+        $email = $settingsRepository->findOneBy(['name' => 'email']);
 
         return $this->render('invoice/show.html.twig', [
             'invoice' => $invoice,
             'address' => $address,
             'email' => $email,
         ]);
+
     }
 
-
-    /**
-     * @Route("/edit/{id}", name="invoice_edit", methods={"GET"})
-     * @param Invoice $invoice
-     * @param SettingsRepository $settingsRepository
-     * @return Response
-     */
-    public function edit(Invoice $invoice, SettingsRepository $settingsRepository): Response
-    {
-        $form = $this->createForm(InvoiceType::class, $invoice);
-        $address = $settingsRepository->findOneBy(['name'=>'shop_address']);
-        $email = $settingsRepository->findOneBy(['name'=>'email']);
-
-        return $this->render('invoice/edit.html.twig', [
-            'form' => $form->createView(),
-            'invoice' => $invoice,
-            'address' => $address,
-            'email' => $email,
-
-        ]);
-    }
 
     /**
      * @Route("/delete/{id}", name="invoice_delete")
      * @param Invoice $id
      * @return Response
      */
-    public function delete(Invoice $id){
+    public function delete(Invoice $id)
+    {
 
         $this->getDoctrine()->getRepository(Invoice::class)->invoiceDelete($id);
         return $this->redirect($this->generateUrl('invoice_list'));

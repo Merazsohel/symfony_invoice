@@ -27,8 +27,7 @@ class InvoiceRepository extends ServiceEntityRepository
                 ->select('p.name,p.price,i.id,i.BillDate,i.BillNumber,i.subtotal,i.vat,i.discount,c.email,c.address')
                 ->groupBy('i.id')
                 ->getQuery()
-                ->getResult()
-                ;
+                ->getResult();
     }
 
     public function invoiceDelete($invoice){
@@ -36,6 +35,26 @@ class InvoiceRepository extends ServiceEntityRepository
         $this->_em->flush();
     }
 
+    public function getSalesReport($from,$to){
+        return $this->createQueryBuilder('i')
+                ->select('i.BillDate,i.BillNumber,i.subtotal')
+                ->andWhere('i.BillDate BETWEEN  :from AND :to')
+                ->setParameter('from', $from )
+                ->setParameter('to', $to)
+                ->getQuery()
+                ->getResult();
+    }
+
+    public function saleCount($from,$to){
+        return $this->createQueryBuilder('i')
+            ->select('SUM(i.subtotal) as subCount')
+            ->where('i.BillDate BETWEEN  :from AND :to')
+            ->setParameter('from', $from )
+            ->setParameter('to', $to)
+            ->getQuery()
+            ->getResult();
+
+    }
 
 
     // /**

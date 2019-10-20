@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %} Create Invoice {% endblock %}
+{% block title %} New Invoice {% endblock %}
 
 {% block body %}
     <div class="container mt-5">
@@ -32,11 +32,11 @@
 
                             <tbody>
 
-                            {% for detail in form.invoiceDetails %}
-
+                            {% for index, item in form.invoiceDetails %}
                                 <tr id="product">
 
-                                    {% include('invoice/form_prototype.html.twig')  with {form: item} %}
+                                    {% include('invoice/form_prototype.html.twig')
+                                        with {form: item, detail: invoice.invoiceDetails[index]} %}
 
                                 </tr>
 
@@ -134,6 +134,8 @@
 
                 calculateSubTotal();
 
+                $("#invoice_vat").val(vatTotal);
+
             }));
 
         });
@@ -143,10 +145,11 @@
             var totalSum = 0;
             var vat = parseFloat('{{ vat.value }}');
 
-            $("#invoice .total").each(function (i, val) {
+            $("#invoice .total").each(function () {
                 var total = parseFloat($(this).attr("data-val"));
 
                 totalSum += parseFloat(total + vat);
+
             });
             $("#invoice_subtotal").val(totalSum);
         };
@@ -159,12 +162,14 @@
         }));
 
         $(document).on('change', '.discount', (function () {
+
             var subTotal = parseFloat(document.getElementById("invoice_subtotal").value);
             var disCountTotal = parseFloat($(this).val());
-            var disCountAdd = subTotal - disCountTotal;
+            var disCountAdd  = subTotal - disCountTotal;
             $("#invoice_subtotal").val(disCountAdd);
 
         }));
+
 
 
     </script>
