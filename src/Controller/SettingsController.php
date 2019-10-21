@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/settings")
+ * @Route("/admin/settings")
  */
 class SettingsController extends AbstractController
 {

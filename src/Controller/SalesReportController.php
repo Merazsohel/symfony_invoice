@@ -13,26 +13,25 @@ class SalesReportController extends AbstractController
 {
 
     /**
-     * @Route("/sales/report", name="get_sales_report",methods={"GET","POST"})
+     * @Route("/admin/sales/report", name="get_sales_report",methods={"GET","POST"})
      * @param Request $request
      * @return Response
      */
-    public function report(Request $request){
+    public function report(Request $request)
+    {
 
-        if ($request){
-            $from = $request->request->get('from');
-            $to = $request->request->get('to');
+        $from = $request->request->get('from');
+        $to = $request->request->get('to');
 
-            $sales =  $this->getDoctrine()->getRepository(Invoice::class)->getSalesReport($from,$to);
-            $salesCount =  $this->getDoctrine()->getRepository(Invoice::class)->saleCount($from,$to);
+        $sales = $this->getDoctrine()->getRepository(Invoice::class)->getSalesReport($from, $to);
+        $salesCount = $this->getDoctrine()->getRepository(Invoice::class)->saleCount($from, $to);
 
-            return $this->render('sales/report.html.twig',[
-                'sales' => $sales,
-                'salesCount' => $salesCount,
-            ]);
-        }
+        return $this->render('sales/report.html.twig', [
+            'sales' => $sales,
+            'salesCount' => $salesCount,
+        ]);
 
-        return $this->render('sales/report.html.twig');
+
     }
 
 }

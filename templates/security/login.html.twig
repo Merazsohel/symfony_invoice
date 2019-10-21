@@ -1,0 +1,53 @@
+{% extends 'home-base.html.twig' %}
+{% block title %} Home {% endblock %}
+{% block body %}
+
+    <div class="container py-5 mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6 mx-auto">
+                        <div class="card border-secondary">
+                            <div class="card-header bg-dark text-white">
+
+                                <form method="post">
+                                    {% if error %}
+                                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                    {% endif %}
+
+                                    {% if app.user %}
+                                        <div class="mb-3">
+                                            You are logged in as {{ app.user.username }}, <a
+                                                    href="{{ path('app_logout') }}">Logout</a>
+                                        </div>
+                                    {% endif %}
+
+                                    <h1 class="h3 mb-3 font-weight-normal text-center">Log In</h1>
+                                    <label for="inputUsername" class="sr-only">Username</label>
+                                    <input type="text" value="{{ last_username }}" name="username" id="inputUsername"
+                                           class="form-control"
+                                           placeholder="Username" required autofocus>
+                                    <label for="inputPassword" class="sr-only">Password</label>
+                                    <input type="password" name="password" id="inputPassword" class="form-control mt-3"
+                                           placeholder="Password" required>
+
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                                    <div class="checkbox float-right mt-3">
+                                        <label>
+                                            <input type="checkbox" name="_remember_me"> Remember me
+                                        </label>
+                                    </div>
+
+                                    <button class="btn btn-primary mt-3" type="submit">Sign in</button>
+
+                                </form>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

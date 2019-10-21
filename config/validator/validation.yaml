@@ -60,3 +60,10 @@ App\Entity\Invoice:
       - NotBlank: { message: 'The BillNumber field is required' }
     BillDate:
       - NotBlank: { message: 'The BillDate field is required' }
+
+App\Entity\User:
+  properties:
+    username:
+      - NotBlank: { message: 'Username field is required' }
+      - NotBlank: { message: 'Password field is required' }
+      - NotBlank: { message: 'Email field is required' }

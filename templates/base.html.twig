@@ -77,16 +77,16 @@
                 <a class="nav-link btn btn-danger" href="{{ url('get_sales_report') }}">Sales Report</a>
             </li>
 
-            <li class="nav-item dropdown">
+            {#<li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">Users</a>
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="{{ url('user_list') }}">List Users</a>
-                    <a class="dropdown-item" href="{{ url('user_create') }}">Add User</a>
+                    <a class="dropdown-item" href="{{ url('user_index') }}">List Users</a>
+                    <a class="dropdown-item" href="{{ url('user_new') }}">Add User</a>
                 </div>
-            </li>
+            </li>#}
             <li class="nav-item">
-                <a class="nav-link  btn btn-danger" href="{{ url('home') }}">Logout</a>
+                <a class="nav-link  btn btn-danger" href="{{ url('app_logout') }}">Logout</a>
             </li>
 
         </ul>
