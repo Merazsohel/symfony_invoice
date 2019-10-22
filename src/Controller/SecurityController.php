@@ -20,10 +20,6 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //    $this->redirectToRoute('target_path');
-        // }
-
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
@@ -47,7 +43,7 @@ class SecurityController extends AbstractController
      * @return Response
      */
 
-    public function forgot(Request $request,UserPasswordEncoderInterface $encoder,UserRepository $userRepository)
+    public function forgot(Request $request, UserPasswordEncoderInterface $encoder, UserRepository $userRepository)
     {
 
         $userInfo = ['username' => null, 'password' => null];
@@ -77,9 +73,6 @@ class SecurityController extends AbstractController
 
         return $this->render('security/forgot.html.twig', array('form' => $form->createView()));
     }
-
-
-
 
 
 }

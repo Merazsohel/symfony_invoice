@@ -11,6 +11,8 @@ use App\Entity\Invoice;
 use App\Form\InvoiceType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 /**
  * @Route("/admin/invoice")
@@ -139,5 +141,42 @@ class InvoiceController extends AbstractController
         $this->getDoctrine()->getRepository(Invoice::class)->invoiceDelete($id);
         return $this->redirect($this->generateUrl('invoice_list'));
     }
+
+    /**
+     * @Route("/pdf/{id}", name="pdf")
+     * @param Invoice $invoice
+     * @param SettingsRepository $settingsRepository
+     */
+
+    public function pdf(Invoice $invoice,SettingsRepository $settingsRepository)
+    {
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+
+        $domPdf = new Dompdf($pdfOptions);
+
+        $address = $settingsRepository->findOneBy(['name' => 'shop_address']);
+        $email = $settingsRepository->findOneBy(['name' => 'email']);
+        $html = $this->renderView('invoice/pdf.html.twig', [
+            'title' => "Invoice",
+            'invoice' => $invoice,
+            'address' => $address,
+            'email' => $email
+        ]);
+        $pdfOptions->setIsRemoteEnabled(true);
+
+        $domPdf->setOptions($pdfOptions);
+        $domPdf->loadHtml($html);
+
+        $domPdf->setPaper('A4', 'portrait');
+
+        $domPdf->render();
+
+        $domPdf->stream("invoice.pdf", [
+            "Attachment" => true,
+
+        ]);
+    }
+
 
 }

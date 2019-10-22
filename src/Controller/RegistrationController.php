@@ -17,17 +17,19 @@ class RegistrationController extends AbstractController
      * @Route("/register", name="user_registration")
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param \Swift_Mailer $mailer
      * @return Response
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer)
     {
 
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
+        $this->addFlash('info', 'Registration Successful.Please Check Your Email!');
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $contactFormData = $form->getData();
             $password = $passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
 
@@ -35,7 +37,20 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('login');
+
+            $message = (new \Swift_Message('Registration Successful!'))
+                ->setFrom('merazhossain64@gmail.com')
+                ->setTo($contactFormData->getEmail())
+                ->setBody(
+                    $this->render('registration/successMessage.html.twig', [
+                        'username' => $contactFormData->getUsername()
+                    ]),
+                    'text/html'
+                );
+
+            $mailer->send($message);
+
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render(
@@ -43,4 +58,6 @@ class RegistrationController extends AbstractController
             array('form' => $form->createView())
         );
     }
+
+
 }

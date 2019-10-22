@@ -8,7 +8,8 @@
         <div class="toolbar hidden-print">
             <div class="text-right">
                 <button id="printInvoice" class="btn btn-danger"><i class="fa fa-print"></i> Print</button>
-                <button class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> Export as PDF</button>
+
+                <a href="{{ url('pdf', {'id': invoice.id}) }}" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> Export as PDF</a>
             </div>
             <hr>
         </div>

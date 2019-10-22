@@ -3,18 +3,18 @@ App\Entity\Settings:
     name:
       - NotBlank: { message: 'The name field is required' }
       - Length:
-              min: 2
-              max: 20
-              minMessage: 'Your  name must be at least {{ limit }} characters long'
-              maxMessage: 'Your name cannot be longer than {{ limit }} characters'
+          min: 2
+          max: 20
+          minMessage: 'Your  name must be at least {{ limit }} characters long'
+          maxMessage: 'Your name cannot be longer than {{ limit }} characters'
 
     value:
-        - NotBlank: { message: 'The value field is required' }
-        - Length:
-            min: 2
-            max: 20
-            minMessage: 'Your  value must be at least {{ limit }} characters long'
-            maxMessage: 'Your value cannot be longer than {{ limit }} characters'
+      - NotBlank: { message: 'The value field is required' }
+      - Length:
+          min: 2
+          max: 20
+          minMessage: 'Your  value must be at least {{ limit }} characters long'
+          maxMessage: 'Your value cannot be longer than {{ limit }} characters'
 
 App\Entity\Category:
   properties:
@@ -47,7 +47,7 @@ App\Entity\Customer:
     name:
       - NotBlank: { message: 'The name field is required' }
     address:
-        - NotBlank: { message: 'The address field is required' }
+      - NotBlank: { message: 'The address field is required' }
     city:
       - NotBlank: { message: 'The city field is required' }
 
@@ -62,8 +62,19 @@ App\Entity\Invoice:
       - NotBlank: { message: 'The BillDate field is required' }
 
 App\Entity\User:
+  constraints:
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+    - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: username
   properties:
     username:
       - NotBlank: { message: 'Username field is required' }
+
+    password:
       - NotBlank: { message: 'Password field is required' }
+      - Length:
+          min: 6
+          max: 4096
+          minMessage: 'Password must be at least {{ limit }} characters long'
+          maxMessage: 'Your password is too long'
+    email:
       - NotBlank: { message: 'Email field is required' }
