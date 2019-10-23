@@ -104,8 +104,8 @@
 
             $("#invoice").on('change', '.product', (function () {
 
-                var thisProd = $(this);
-                var id = thisProd.val();
+                const thisProd = $(this);
+                const id = thisProd.val();
 
                 $.ajax({
                     type: "POST",
@@ -128,10 +128,10 @@
 
             $("#invoice").on('change', '.quantity', (function () {
 
-                var thisQty = $(this);
-                var qty = parseFloat(thisQty.val());
+                const thisQty = $(this);
+                const qty = parseFloat(thisQty.val());
 
-                var price = parseFloat(thisQty.closest("tr").find("td.price").html());
+                const price = parseFloat(thisQty.closest("tr").find("td.price").html());
 
                 thisQty.closest("tr").find("td.total").html(price * qty);
                 thisQty.closest("tr").find("td.total").attr("data-val", price * qty);
@@ -146,13 +146,13 @@
         //subtotal calculate
 
         calculateSubTotal = function () {
-            var totalSub = 0;
-            var vat = parseFloat('{{ vat.value }}');
+            let totalSub = 0;
+            const vat = parseFloat('{{ vat.value }}');
 
             $("#invoice .total").each(function () {
-                var total = parseFloat($(this).attr("data-val"));
+                const total = parseFloat($(this).attr("data-val"));
 
-                var totalSum = parseInt((total + vat) / 100);
+                const totalSum = total*vat/100;
                 totalSub += parseFloat(totalSum + total)
 
             });
@@ -162,32 +162,30 @@
         //cash
 
         $(document).on('input', '.cash', (function () {
-            var sub = document.getElementById("invoice_subtotal").value - $(this).val();
+            const sub = document.getElementById("invoice_subtotal").value - $(this).val();
             $("#change").val(sub);
 
         }));
 
         //discount add
 
-        $(document).on('change', '.discount', (function () {
+        $(document).on('input', '.discount', (function () {
 
-            var subTotal = parseFloat(document.getElementById("invoice_subtotal").value);
-            var disCountTotal = parseFloat($(this).val());
-            var disCountAdd = subTotal - disCountTotal;
-            $("#invoice_subtotal").val(disCountAdd);
+            const subTotal = document.getElementById("invoice_subtotal").value - $(this).val();
+            $("#invoice_subtotal").val(subTotal);
 
         }));
 
 
         //prototype
 
-        var $collectionHolder;
-        var $addItemButton = $('#more');
+        let $collectionHolder;
+        const $addItemButton = $('#more');
 
         function addItemForm($collectionHolder) {
-            var prototype = $collectionHolder.data('prototype');
-            var index = $collectionHolder.data('index');
-            var newForm = prototype;
+            const prototype = $collectionHolder.data('prototype');
+            const index = $collectionHolder.data('index');
+            let newForm = prototype;
 
             newForm = newForm.replace(/__name__/g, index);
 
