@@ -34,7 +34,7 @@
                 </form>
 
 
-                <table class="table table-bordered center sales">
+                <table class="table table-bordered center sales" id="sales">
                     <thead>
                     <tr>
                         <th scope="col">Bill No.</th>
@@ -70,7 +70,7 @@
 
                     </tbody>
                 </table>
-                <button type="submit" class="btn btn-danger float-right" id="printSales"><i class="fa fa-print"></i> Print</button>
+                <button type="submit" class="btn btn-danger float-right mt-5 mb-1" id="printSales"><i class="fa fa-print"></i> Print</button>
             </div>
         </div>
     </div>
@@ -89,5 +89,10 @@
 
             }
         });
+    </script>
+    <script>
+        $(document).ready( function () {
+            $('#sales').DataTable();
+        } );
     </script>
 {% endblock %}

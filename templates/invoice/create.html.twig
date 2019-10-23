@@ -134,7 +134,6 @@
 
                 calculateSubTotal();
 
-                $("#invoice_vat").val(vatTotal);
 
             }));
 
@@ -142,16 +141,17 @@
 
 
         calculateSubTotal = function () {
-            var totalSum = 0;
+            var totalSub = 0;
             var vat = parseFloat('{{ vat.value }}');
 
             $("#invoice .total").each(function () {
                 var total = parseFloat($(this).attr("data-val"));
 
-                totalSum += parseFloat(total + vat);
+                var totalSum = parseInt((total + vat) / 100);
+                totalSub += parseFloat(totalSum + total)
 
             });
-            $("#invoice_subtotal").val(totalSum);
+            $("#invoice_subtotal").val(totalSub);
         };
 
 
@@ -165,11 +165,10 @@
 
             var subTotal = parseFloat(document.getElementById("invoice_subtotal").value);
             var disCountTotal = parseFloat($(this).val());
-            var disCountAdd  = subTotal - disCountTotal;
+            var disCountAdd = subTotal - disCountTotal;
             $("#invoice_subtotal").val(disCountAdd);
 
         }));
-
 
 
     </script>

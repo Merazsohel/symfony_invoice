@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
 
 class ProductType extends AbstractType
 {
@@ -26,6 +27,8 @@ class ProductType extends AbstractType
                         ->where('c.parent is not Null');
                 },
                 'choice_label' => 'name',
+
+
             ]);
 
 
