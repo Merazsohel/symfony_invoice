@@ -97,6 +97,9 @@
 {% block javascripts %}
 
     <script>
+
+        //get price by product wise
+
         $(document).ready(function () {
 
             $("#invoice").on('change', '.product', (function () {
@@ -119,6 +122,7 @@
 
         });
 
+        //calculate price by qty
 
         $(document).ready(function () {
 
@@ -139,6 +143,7 @@
 
         });
 
+        //subtotal calculate
 
         calculateSubTotal = function () {
             var totalSub = 0;
@@ -154,12 +159,15 @@
             $("#invoice_subtotal").val(totalSub);
         };
 
+        //cash
 
         $(document).on('input', '.cash', (function () {
             var sub = document.getElementById("invoice_subtotal").value - $(this).val();
             $("#change").val(sub);
 
         }));
+
+        //discount add
 
         $(document).on('change', '.discount', (function () {
 
@@ -171,10 +179,7 @@
         }));
 
 
-    </script>
-
-
-    <script>
+        //prototype
 
         var $collectionHolder;
         var $addItemButton = $('#more');
@@ -191,6 +196,7 @@
         }
 
 
+
         {% block document_ready %}
         {{ parent() }}
         $collectionHolder = $('table.items');
@@ -200,16 +206,13 @@
             addItemForm($collectionHolder);
         });
 
-        if ($collectionHolder.find('tr').length == 1) {
+        if ($collectionHolder.find('tr').length === 1) {
             $addItemButton.click();
         }
         {% endblock %}
 
-    </script>
+        // remove item
 
-    {#remove product item#}
-
-    <script>
         $('table').on('click', 'input[type="button"]', function (e) {
             $(this).closest('tr').remove();
             calculateSubTotal();

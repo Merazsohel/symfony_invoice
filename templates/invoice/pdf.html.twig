@@ -254,9 +254,9 @@
                         <tr>
                             <td>{{ i+1 }}</td>
                             <td class="text-left"> {{ detail.product.name }} </td>
-                            <td class="unit">{{ detail.product.price }} TK.</td>
+                            <td class="unit">{{ detail.product.price }} Tk.</td>
                             <td class="qty">{{ detail.quantity }}</td>
-                            <td class="total">{{ detail.product.price *  detail.quantity }} TK.</td>
+                            <td class="total">{{ detail.product.price *  detail.quantity }} Tk.</td>
 
                         </tr>
                     {% endfor %}
@@ -266,18 +266,18 @@
 
                     <tr>
                         <td colspan="2"></td>
-                        <td colspan="2">VAT</td>
-                        <td>{{ invoice.vat }} TK.</td>
+                        <td colspan="2">Vat</td>
+                        <td>{{ invoice.vat }} %</td>
                     </tr>
                     <tr>
                         <td colspan="2"></td>
                         <td colspan="2">Discount</td>
-                        <td>{{ invoice.discount }} TK.</td>
+                        <td>{{ invoice.discount }} Tk.</td>
                     </tr>
                     <tr>
                         <td colspan="2"></td>
-                        <td colspan="2">Sub TOTAL</td>
-                        <td class="bg-primary">{{ invoice.subtotal }} TK.</td>
+                        <td colspan="2">Sub Total</td>
+                        <td class="bg-primary">{{ invoice.subtotal }} Tk.</td>
                     </tr>
                     </tfoot>
                 </table>
