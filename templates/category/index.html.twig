@@ -3,47 +3,54 @@
 {% block title %}Category index{% endblock %}
 
 {% block body %}
-<div class="row">
-    <div class="container">
-        <div class="col-md-12 mt-5">
-            <a href="{{ path('category_new') }}" class="btn btn-danger mb-3"><i class="fa fa-plus"> New</i></a>
-    <table class="table  center" >
-        <thead>
-            <tr class="float-center">
-                <th>Id</th>
-                <th>Name</th>
-                <th>Action</th>
-                <th>SubCategory</th>
+    <div class="row">
+        <div class="container">
+            <div class="col-md-12 mt-5">
+                <a href="{{ path('category_new') }}" class="btn btn-danger mb-3"><i class="fa fa-plus"> New</i></a>
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible fade show">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                <table class="table  center">
+                    <thead>
+                    <tr class="float-center">
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Action</th>
+                        <th>SubCategory</th>
 
-            </tr>
-        </thead>
-        <tbody>
-        {% for category in categories %}
-            <tr>
-                <td>{{ category.id }}</td>
-                <td>{{ category.name }}</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for category in categories %}
+                        <tr>
+                            <td>{{ category.id }}</td>
+                            <td>{{ category.name }}</td>
 
-                <td>
-                    <a href="{{ path('category_show', {'id': category.id}) }}" class="btn btn-info"><i class="fa fa-eye"></i></a>
-                    <a href="{{ path('category_edit', {'id': category.id}) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                            <td>
+                                <a href="{{ path('category_show', {'id': category.id}) }}" class="btn btn-info"><i
+                                            class="fa fa-eye"></i></a>
+                                <a href="{{ path('category_edit', {'id': category.id}) }}" class="btn btn-primary"><i
+                                            class="fa fa-edit"></i></a>
 
-                </td>
-                <td>
-                    <a href="{{ path('category_new',{'parentId': category.id}) }}" class="btn btn-success mb-3"><i class="fa fa-plus"></i></a>
-                </td>
+                            </td>
+                            <td>
+                                <a href="{{ path('category_new',{'parentId': category.id}) }}"
+                                   class="btn btn-success mb-3"><i class="fa fa-plus"></i></a>
+                            </td>
 
 
-
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
 {% endblock %}
