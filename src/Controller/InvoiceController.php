@@ -173,7 +173,7 @@ class InvoiceController extends AbstractController
         $domPdf->render();
 
         $domPdf->stream("invoice.pdf", [
-            "Attachment" => true,
+            "Attachment" => false,
 
         ]);
     }
